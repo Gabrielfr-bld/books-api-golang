@@ -1,0 +1,22 @@
+version: '3.7'
+
+services:
+  db:
+    build:
+      context: .
+      dockerfile: .dockerfile
+    image: github.com/Gabrielfr-bld/booksapi-db
+    container_name: books-api-go
+    restart: unless-stopped
+    tty: true
+    ports:
+      - "25432:25432"
+    enviroment:
+      -POSTGRES_DB: books
+      -POSTGRES_USER: admin
+      -POSTGRES_PASSWORD: 123456
+      -PGDATA: /var/lib/postgresql/data
+    volumes:
+      - books-api-go:/var/lib/postgresql/data
+  volumes:
+    - books-api-go:
